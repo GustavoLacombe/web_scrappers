@@ -4,14 +4,19 @@
 
 ## Pré-requisitos
 
-> - **Python** com versão superior ou igual que 8.1 - [Python Download](https://www.python.org/downloads/)
-> - **Selenium** com versão superior ou igual que 5.6 - [Python Download](https://www.selenium.dev/downloads/)
-> - **BeautifulSoup** com versão superior ou igual que 8.1 - [Python Download](https://pypi.org/project/beautifulsoup4/)
-> - **Pandas** com versão superior ou igual que 8.1 - [Python Download](https://pandas.pydata.org/)
+> - **Python** - [Python Download](https://www.python.org/downloads/)
+> - **Selenium** - [Python Download](https://www.selenium.dev/downloads/)
+> - **BeautifulSoup**  - [Python Download](https://pypi.org/project/beautifulsoup4/)
+> - **Pandas**  - [Python Download](https://pandas.pydata.org/)
+> - **Requests** - [Python Download](https://pypi.org/project/requests/)
+
 
 ## Instalação
 
-> Clone esse projeto em seu computador com o comando:
+> Clone esses projetos em seu computador com os comandos:
+> ```
+> 	git clone https://github.com/moresconey/captcha-rfb 
+> ```
 > ```
 > 	git clone https://github.com/GustavoLacombe/web_scrappers.git
 > ```
