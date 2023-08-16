@@ -39,14 +39,14 @@ def get_row_data(tabela): #Pegar linhas da tabela
    for row in tabela.find_elements_by_xpath(".//tr"):
         return [item.text for item in row.find_elements(By.XPATH, value=".//td")]
 
-while continua == True:
-    for tabela in driver.find_elements(By.XPATH, value="//table"): #Percorrer as linhas e atribuir valores as listas
-        for data in get_row_data(tabela):
-            inscricao = data[0]
-            list_inscricao.append(inscricao)
-            
-    button_passa_pagina = driver.find_element(By.XPATH, value="//div[4]/button")
-    button_passa_pagina.click()
+#while continua == True:
+for tabela in driver.find_elements(By.XPATH, value="//table"): #Percorrer as linhas e atribuir valores as listas
+    for data in get_row_data(tabela):
+        inscricao = data[0]
+        list_inscricao.append(inscricao)
+
+#    button_passa_pagina = driver.find_element(By.XPATH, value="//div[4]/button")
+#    button_passa_pagina.click()
 
         
 print(list_inscricao)
