@@ -15,9 +15,6 @@
 
 > Clone esses projetos em seu computador com os comandos:
 > ```
-> 	git clone https://github.com/moresconey/captcha-rfb 
-> ```
-> ```
 > 	git clone https://github.com/GustavoLacombe/web_scrappers.git
 > ```
 > Acesse a pasta do projeto seu terminal:

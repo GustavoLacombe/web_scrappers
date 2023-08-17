@@ -1,7 +1,16 @@
+import os
+import pkg_resources
+
+required = {'numpy', 'selenium', 'pandas', 'requests', 'fake_useragent'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing = required - installed
+for pkg in missing:
+    os.system(f'pip install {pkg}')
+
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import pandas as pd
 import time
@@ -18,9 +27,6 @@ class WebScrapper():
         self.continua = True
         
         self.chrome_options = Options()
-        ua = UserAgent()
-        self.user_agent = ua.random
-        self.chrome_options.add_argument(f'user-agent={self.user_agent}')
         self.chrome_options.add_argument("window-size=1920,1080")
 
     def iniciar(self):
@@ -78,7 +84,7 @@ class WebScrapper():
                 break
             self.passa_pagina()
 
-        self.driver.close()    
+        self.driver.close()
         self.driver.quit()
 
     def monta_csv(self):
