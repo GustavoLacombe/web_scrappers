@@ -29,19 +29,10 @@ import csv
 
 class WebScrapper():
     def __init__(self) -> None:
-        self.list_cpf = []        
-        self.list_data_nascimento = []
-        self.list_situacao_cadastral = []
-        self.list_data_inscricao = []
-        self.list_digito_verificador = []
-        self.list_ano_obito = []
-        self.list_data_hora_consulta = []
         self.filename = 'cpfs_consulta.csv'
-        
         self.URLwave = 'https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/captcha/gerarSom.asp'
         self.URLmain = 'https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/ConsultaPublicaSonoro.asp'
         self.INPUTCaptcha = 'txtTexto_captcha_serpro_gov_br'
-        self.DIVContent = 'mainComp'
         self.BTSearch = 'id_submit'
         self.header = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'}
 
@@ -71,16 +62,10 @@ class WebScrapper():
                         cpf = row[0]
                         data = row[1]
                         self.get(cpf, data)
-                        self.monta_dados(row)
+
             break
         self.driver.close()    
         self.driver.quit()
-        
-    def monta_dados(self, row):   
-        cpf = row[0]
-        data_nascimento = row[1]
-        self.list_cpf.append(cpf)
-        self.list_data_nascimento.append(data_nascimento)
             
     def _download_wave(self, first_try = True):
         if first_try:
@@ -181,28 +166,40 @@ class WebScrapper():
 
         if self._download_wave():
             captcha = self.driver.find_element(By.ID, self.INPUTCaptcha)
-            captcha.click()
             time.sleep(2)
+            captcha.click()
 
             self._paste_text(self._solve_captcha())
 
             time.sleep(2)
             self.driver.find_element(By.ID, self.BTSearch).click()
 
-            teste = self.driver.find_element(By.ID, self.DIVContent)
-            print(teste.text)
-            self.salva(cpf, 'teste')
-        else:
-            return False
+            for item in self.driver.find_elements(By.ID, 'mainComp'):
+                situacao = item.find_element(By.XPATH, './/div[2]/p/span[4]/b').text
+                data_insc = item.find_element(By.XPATH, './/div[2]/p/span[5]/b').text
+                digito = item.find_element(By.XPATH, './/div[2]/p/span[6]/b').text
+                ano_obito = item.find_element(By.XPATH, './/div[3]/p[2]/span[1]/b[2]').text
+                data_cert = item.find_element(By.XPATH, './/div[3]/p[2]/span[2]/b[2]').text
+                hora_cert = item.find_element(By.XPATH, './/div[3]/p[2]/span[2]/b[1]').text
+                data_hora = data_cert + ' ' + hora_cert
+                self.salva(cpf, situacao, data_insc, digito, ano_obito, data_hora)
+                break
+            print(cpf, situacao, data_insc, digito, ano_obito, data_hora)
+            self.salva(cpf, situacao, data_insc, digito, ano_obito, data_hora)
 
     def _paste_text(self, value):
         subprocess.run(self.copy_keyword, universal_newlines=True, input=value)
         ActionChains(self.driver).key_down(Keys.CONTROL).key_down('v').key_up('v').key_up(Keys.CONTROL).perform()
 
-    def salva(self, cpf, teste):
+    def salva(self, cpf, situacao, data_insc, digito, ano_obito, data_hora):
         df = pd.read_csv ('cpfs_consulta.csv')
-        update = df['cpf'] = cpf
-        df.loc[update, 'situacao_cadastral'] = teste
+        update = df['cpf'] == cpf
+        df.loc[update, 'situacao_cadastral'] = situacao
+        df.loc[update, 'data_inscricao'] = data_insc
+        df.loc[update, 'digito_verificador'] = digito
+        df.loc[update, 'ano_obito'] = ano_obito
+        df.loc[update, 'data_hora_consulta'] = data_hora
+        df.to_csv('cpfs_consulta.csv', encoding='utf-8', index=False)
 
 if __name__ == '__main__':
     scrapper = WebScrapper()

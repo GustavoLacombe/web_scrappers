@@ -3,10 +3,10 @@
 > Este é projeto realizado para um processo seletivo, que consiste no desenvolvimento de dois web scrappers em python. 
 
 ## Pré-requisitos
-
+> Bibliotecas utilizadas 
+>
 > - **Python** - [Python Download](https://www.python.org/downloads/)
 > - **Selenium** - [Python Download](https://www.selenium.dev/downloads/)
-> - **BeautifulSoup**  - [Python Download](https://pypi.org/project/beautifulsoup4/)
 > - **Pandas**  - [Python Download](https://pandas.pydata.org/)
 > - **Requests** - [Python Download](https://pypi.org/project/requests/)
 
@@ -17,16 +17,26 @@
 > ```
 > 	git clone https://github.com/GustavoLacombe/web_scrappers.git
 > ```
-> Acesse a pasta do projeto seu terminal:
-> ```
-> 	cd [Nome da pasta do seu Projeto]
-> ```
-> Já pasta da aplicação em seu terminal, basta executar a aplicação
+>
+> Abra o terminal ou sua IDE preferida e siga os passos abaixo para a execução.
+>
 
 ## Execução
 
-> Execute o arquivo.py
-
+> Após clonar o repositório:
+> Para executar o Teste 1. - 
+>   Entre no diretorio "teste1" e execute o arquivo python "web_scrapper1.py", utilizando o código abaixo:
+> ```
+> 	python .\web_scrapper1.py
+> ```
+>
+> Para executar o Teste 2. - 
+>   Entre no diretorio "teste2" e execute o arquivo python "web_scrapper2.py", utilizando o código abaixo:
+> ```
+> 	python .\web_scrapper2.py
+> ```
+>
+>
 ## Autores
 
 Informe o nome das pessoas envolvidas no desenvolvimento do projeto e se quiser atribua as respectivas redes sociais para contato da comunidade;
